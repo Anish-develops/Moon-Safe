@@ -1,6 +1,6 @@
 import e from "express";
 import cors from "cors";
-import cookeParser from "cookie-parser";
+import cookieParser from "cookie-parser"; // fix typo: cookeParser → cookieParser
 
 const app = e();
 app.use(
@@ -22,7 +22,7 @@ app.use(
 app.use(cookeParser());
 
 app.get("/", (req, res) => {
-    res.send("API is running....");
+  res.send("API is running....");
 });
 
 import healthCheckRoute from "./routes/healthCheck.route.js";
@@ -39,5 +39,9 @@ app.use("/api/v1", userRoute);
 app.use("/api/v1", recordingRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1", emergencyRoute);
+
+// ✅ Emergency Contact Route
+import emergencyContactRoute from "./routes/emergencyContact.route.js";
+app.use("/api/v1/emergency-contacts", emergencyContactRoute);
 
 export default app;
