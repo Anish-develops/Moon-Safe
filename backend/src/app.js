@@ -27,6 +27,9 @@ app.get("/", (req, res) => {
 
 import healthCheckRoute from "./routes/healthCheck.route.js";
 import userRoute from "./routes/user.route.js";
+
+
+import emergencyRoute from "./routes/emergency.js";
 import recordingRoute from "./routes/recording.route.js";
 import authRoute from "./routes/auth.route.js";
 
@@ -35,5 +38,6 @@ app.use("/api/v1", healthCheckRoute);
 app.use("/api/v1", userRoute);
 app.use("/api/v1", recordingRoute);
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1", emergencyRoute);
 
 export default app;
