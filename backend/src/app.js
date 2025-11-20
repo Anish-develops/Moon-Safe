@@ -29,7 +29,7 @@ import healthCheckRoute from "./routes/healthCheck.route.js";
 import userRoute from "./routes/user.route.js";
 
 
-import emergencyRoute from "./routes/emergency.js";
+import emergencyRoute from "./routes/emergency.route.js";
 import recordingRoute from "./routes/recording.route.js";
 import authRoute from "./routes/auth.route.js";
 
