@@ -19,7 +19,7 @@ app.use(
         allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
-app.use(cookeParser());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("API is running....");

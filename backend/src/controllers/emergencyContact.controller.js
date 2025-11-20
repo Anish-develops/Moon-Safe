@@ -1,12 +1,27 @@
 import EmergencyContact from "../models/emergencyContact.model.js";
 import twilio from "twilio";
 
-// Twilio credentials (set in .env)
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const fromWhatsAppNumber = "whatsapp:" + process.env.TWILIO_WHATSAPP_NUMBER;
+const accountSid = process.env.TWILIO_ACCOUNT_SID?.trim();
+const authToken = process.env.TWILIO_AUTH_TOKEN?.trim();
+const whatsAppNumber = process.env.TWILIO_WHATSAPP_NUMBER?.trim();
+const hasValidTwilioConfig =
+  typeof accountSid === "string" &&
+  accountSid.startsWith("AC") &&
+  typeof authToken === "string" &&
+  authToken.length > 0 &&
+  typeof whatsAppNumber === "string" &&
+  whatsAppNumber.length > 0;
 
-const client = twilio(accountSid, authToken);
+const fromWhatsAppNumber = hasValidTwilioConfig
+  ? "whatsapp:" + whatsAppNumber
+  : undefined;
+const client = hasValidTwilioConfig ? twilio(accountSid, authToken) : null;
+
+if (!hasValidTwilioConfig) {
+  console.warn(
+    "[Twilio] Credentials missing or invalid. Emergency alerts are disabled until TWILIO_ACCOUNT_SID (AC...), TWILIO_AUTH_TOKEN and TWILIO_WHATSAPP_NUMBER are set.",
+  );
+}
 
 // Add a new emergency contact
 export const addContact = async (req, res) => {
@@ -28,11 +43,9 @@ export const addContact = async (req, res) => {
 
     if (!userId) {
       // Model requires user; caller must provide user id or be authenticated
-      return res
-        .status(400)
-        .json({
-          message: "User id is required (send auth or include 'user' in body)",
-        });
+      return res.status(400).json({
+        message: "User id is required (send auth or include 'user' in body)",
+      });
     }
 
     const contact = new EmergencyContact({
@@ -55,17 +68,22 @@ export const addContact = async (req, res) => {
 // Send emergency alert to all contacts
 export const alertContacts = async (req, res) => {
   try {
+    if (!client) {
+      return res.status(503).json({
+        message:
+          "Emergency alerts are temporarily unavailable. Configure TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_WHATSAPP_NUMBER to enable alerts.",
+      });
+    }
+
     // Use authenticated user id or allow caller to pass user id in body
     const body = req.body || {};
     const userId = req.user && req.user._id ? req.user._id : body.user;
 
     if (!userId) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "User id is required to send alerts (authenticate or include 'user' in body)",
-        });
+      return res.status(400).json({
+        message:
+          "User id is required to send alerts (authenticate or include 'user' in body)",
+      });
     }
 
     const contacts = await EmergencyContact.find({ user: userId });
@@ -84,7 +102,7 @@ export const alertContacts = async (req, res) => {
         body: messageBody,
         from: fromWhatsAppNumber,
         to: "whatsapp:" + contact.phoneNumber,
-      })
+      }),
     );
 
     await Promise.all(sendMessages);
