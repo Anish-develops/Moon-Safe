@@ -20,7 +20,6 @@ export default function Index() {
                         <Text style={styles.buttonText}>Go to Recording Page</Text>
                     </TouchableOpacity>
                 </Link>
-
             </View>
         </SafeAreaView>
     );
