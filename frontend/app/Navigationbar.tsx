@@ -14,8 +14,6 @@ export default function NavigationBar() {
     />
     <Text style={styles.brand}>MoonSafe</Text>
   </View>
-
-      {/* RIGHT */}
       <View style={styles.rightSection}>
         <TouchableOpacity style={styles.iconBtn}>
           <Feather name="user" size={28} color="#333" />
