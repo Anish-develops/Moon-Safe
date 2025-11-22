@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import axios from "axios";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
     return (
@@ -10,7 +9,6 @@ export default function Index() {
             <View style={styles.container}>
                 <Text style={styles.tagline}>Empower. Alert. Stay Safe.</Text>
                 <Text style={styles.title}>Moon Safe</Text>
-
                 <Text style={styles.subtitle}>
                     Configure trusted contacts, trigger SOS alerts, and share
                     real-time details directly from your phone.
@@ -38,6 +36,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
+        alignItems: "flex-start",
         gap: 16,
     },
     tagline: {
