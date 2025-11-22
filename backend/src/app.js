@@ -4,19 +4,16 @@ import cookieParser from "cookie-parser"; // fix typo: cookeParser → cookiePar
 
 const app = e();
 app.use(
-    e.json({
-        limit: "32kb",
-    })
+  e.json({
+    limit: "32kb",
+  }),
 );
 app.use(e.urlencoded({ extended: true, limit: "32kb" }));
 app.use(e.static("public"));
 
 app.use(
   cors({
-    origin: ["http://localhost:8081",
-        "http://localhost:8080",
-        "*"
-    ],  
+    origin: ["http://localhost:8081", "http://localhost:8080", "*"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -31,17 +28,17 @@ app.get("/", (req, res) => {
 import healthCheckRoute from "./routes/healthCheck.route.js";
 import userRoute from "./routes/user.route.js";
 
-
 import emergencyRoute from "./routes/emergency.route.js";
 import recordingRoute from "./routes/recording.route.js";
 import authRoute from "./routes/auth.route.js";
-
+import settingsRoute from "./routes/settings.route.js";
 
 app.use("/api/v1", healthCheckRoute);
 app.use("/api/v1", userRoute);
 app.use("/api/v1", recordingRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1", emergencyRoute);
+app.use("/api/v1", settingsRoute);
 
 // ✅ Emergency Contact Route
 import emergencyContactRoute from "./routes/emergencyContact.route.js";
