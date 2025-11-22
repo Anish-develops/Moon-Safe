@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
 
@@ -14,10 +16,11 @@ export default function Index() {
                     real-time details directly from your phone.
                 </Text>
 
-                {/* BUTTON TO GO TO RECORDING PAGE */}
                 <Link href="/audiorecording" asChild>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Go to Recording Page</Text>
+                        <Text style={styles.buttonText}>
+                            Go to Recording Page
+                        </Text>
                     </TouchableOpacity>
                 </Link>
             </View>
@@ -29,12 +32,12 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: "#081426",
+        paddingHorizontal: 24,
+        paddingVertical: 32,
     },
     container: {
         flex: 1,
-        paddingHorizontal: 24,
         justifyContent: "center",
-        alignItems: "flex-start",
         gap: 16,
     },
     tagline: {
@@ -63,5 +66,31 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 16,
         fontWeight: "600",
+        textAlign: "center",
+    },
+    secondaryButton: {
+        backgroundColor: "#12223D",
+        padding: 16,
+        borderRadius: 10,
+    },
+    secondaryButtonText: {
+        color: "#7FD1FF",
+        fontSize: 14,
+        fontWeight: "600",
+        textAlign: "center",
+    },
+    statusWrapper: {
+        gap: 4,
+    },
+    label: {
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "600",
+    },
+    success: {
+        color: "#9BE7A0",
+    },
+    error: {
+        color: "#FF6B6B",
     },
 });

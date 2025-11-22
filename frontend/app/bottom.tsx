@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import { Entypo, Feather, FontAwesome5 } from "@expo/vector-icons";
-
+import { Href } from "expo-router";
 export default function BottomNav() {
   return (
     <View style={styles.container}>
