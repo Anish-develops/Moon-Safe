@@ -12,12 +12,15 @@ app.use(e.urlencoded({ extended: true, limit: "32kb" }));
 app.use(e.static("public"));
 
 app.use(
-    cors({
-        origin: "*",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-        allowedHeaders: ["Content-Type", "Authorization"],
-    })
+  cors({
+    origin: ["http://localhost:8081",
+        "http://localhost:8080",
+        "*"
+    ],  
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
 );
 app.use(cookieParser());
 
