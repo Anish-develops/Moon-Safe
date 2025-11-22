@@ -42,7 +42,7 @@ export default function AudioRecording() {
       {/* This scrolls ENTIRE page */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 160 }}
+        contentContainerStyle={{ paddingBottom: 160  , }}
       >
         {/* Title */}
         <View style={styles.header}>

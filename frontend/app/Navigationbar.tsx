@@ -29,6 +29,8 @@ export default function NavigationBar() {
 
 const styles = StyleSheet.create({
   nav: {
+    flex:1,
+    paddingTop:10,
     height: 60,
     paddingHorizontal: 16,
     flexDirection: "row",
